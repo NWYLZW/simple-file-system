@@ -13,7 +13,10 @@ int main() {
     while (true) {
         cout << (isRight ? "" : RED) << "username@" << hostname << " > " << RESET;
         getline(cin, input);
-        if (input == "exit") { break; }
+        if (input == "exit") {
+            cout << "See you~" << endl;
+            break;
+        }
         if (!input.empty()) {
             isRight = system(
                 ("./bin/" + input).c_str()
