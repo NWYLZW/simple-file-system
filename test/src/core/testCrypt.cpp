@@ -9,10 +9,12 @@ namespace {
     };
 }
 
-TEST_F(TestClass,Test_ReturnZeroMethod){
-    ASSERT_EQ(testCryptor.zero(), 0);
-}
-
-TEST_F(TestClass,Test_ReturnZeroMethod_1){
-    ASSERT_EQ(testCryptor.zero(), 1);
+TEST_F(TestClass, Test_ReturnZeroMethod){
+    char* plainText = "some text";
+    char* ciphertext = testCryptor.virginia(plainText, "123456");
+    ASSERT_EQ(
+        testCryptor.virginia(
+            ciphertext, "123456", true
+        ), plainText
+    );
 }
