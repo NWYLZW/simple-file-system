@@ -1,6 +1,2 @@
-#ifndef SIMPLE_FILE_SYSTEM_LOGIN_H
-#define SIMPLE_FILE_SYSTEM_LOGIN_H
-
+#pragma once
 #include <iostream>
-
-#endif //SIMPLE_FILE_SYSTEM_LOGIN_H
