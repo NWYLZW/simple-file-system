@@ -3,22 +3,21 @@ project(simple_file_system)
 
 set(CMAKE_CXX_STANDARD 20)
 
+# set build output file dir
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "./bin")
 
+# set source file dir
+include_directories(src)
+
+# build command
 file(
-    GLOB
-    login "src/commands/login.cpp"
+    GLOB login "src/commands/login.cpp"
 )
+add_executable(login ${login})
 
-add_executable(
-    login ${login}
-)
+# build main program
+file(GLOB sfs "src/*.cpp")
+add_executable(sfs ${sfs})
 
-file(
-    GLOB
-    sfs "src/core/*.cpp" "src/core/*.h" "src/*.cpp"
-)
-
-add_executable(
-    sfs ${sfs}
-)
+# set test sub dir
+add_subdirectory("test")
