@@ -5,12 +5,11 @@ set(CMAKE_CXX_STANDARD 20)
 
 file(
     GLOB
-    mainSources "src/core/*.cpp" "src/*.cpp"
+    main "src/core/*.cpp" "src/*.cpp"
 )
 
 add_executable(
-    simple_file_system
-    ${mainSources}
+    main ${main}
 )
 
 file(
