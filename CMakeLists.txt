@@ -16,7 +16,7 @@ add_executable(
 
 file(
     GLOB
-    sfs "src/core/*.cpp" "src/*.cpp"
+    sfs "src/core/*.cpp" "src/core/*.h" "src/*.cpp"
 )
 
 add_executable(
