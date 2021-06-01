@@ -3,14 +3,7 @@ project(simple_file_system)
 
 set(CMAKE_CXX_STANDARD 20)
 
-file(
-    GLOB
-    main "src/core/*.cpp" "src/*.cpp"
-)
-
-add_executable(
-    main ${main}
-)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "./bin")
 
 file(
     GLOB
@@ -19,4 +12,13 @@ file(
 
 add_executable(
     login ${login}
+)
+
+file(
+    GLOB
+    main "src/core/*.cpp" "src/*.cpp"
+)
+
+add_executable(
+    main ${main}
 )
