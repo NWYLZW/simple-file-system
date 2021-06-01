@@ -27,5 +27,7 @@ int main (
             return 0;
         }
     }
+    char * username = args[1];
+    std::cout << username << std::endl;
     return 0;
 }
