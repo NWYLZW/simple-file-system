@@ -59,7 +59,6 @@ bool verify(
     const std::string& username, std::string* p_password
 ) {
     for (const auto &user : *listUsers()) {
-        std::cout << *user->p_username << std::endl;
         if (username == *user->p_username) {
             if (user->p_password->empty()) {
                 return true;
