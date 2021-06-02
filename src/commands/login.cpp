@@ -55,7 +55,7 @@ int main (
     int argc, char* *args
 ) {
     if (argc <= 1) {
-        std::cout << "Params is empty." << std::endl;
+        std::cout << "ERROR: params is empty." << std::endl;
         return 1;
     }
     for (int i = 0;i < argc; i++) {
