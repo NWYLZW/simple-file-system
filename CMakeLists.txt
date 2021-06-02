@@ -9,7 +9,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "./bin")
 # set source file dir
 include_directories(src)
 
-# build command
+# build commands
 file(
     GLOB login
     "src/core/*.cpp"
@@ -17,13 +17,19 @@ file(
 )
 add_executable(login ${login})
 
-# build command
 file(
     GLOB dir
     "src/core/*.cpp"
     "src/commands/dir.cpp"
 )
 add_executable(dir ${dir})
+
+file(
+    GLOB delete
+    "src/core/*.cpp"
+    "src/commands/delete.cpp"
+)
+add_executable(delete ${delete})
 
 # build main program
 file(
