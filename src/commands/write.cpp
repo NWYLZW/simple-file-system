@@ -29,6 +29,9 @@ int main(
     }
     auto filePath = std::string(args[1]);
     auto fileCont = std::string(args[2]);
+    for (int i = 1; i + 2 < argc; ++i) {
+        fileCont += " " + std::string(args[i + 2]);
+    }
     std::fstream file;
     file.open(filePath, std::fstream::out);
     if(!file.is_open()) {
