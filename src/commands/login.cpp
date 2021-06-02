@@ -30,7 +30,7 @@ std::vector<User*>* listUsers() {
     auto users = new std::vector<User*>();
 
     std::string line;
-    std::ifstream file;
+    std::fstream file;
     file.open(
         std::string(getpwuid(getuid())->pw_dir) + "/.sfs.users"
     );
