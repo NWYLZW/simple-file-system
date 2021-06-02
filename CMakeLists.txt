@@ -11,12 +11,18 @@ include_directories(src)
 
 # build command
 file(
-    GLOB login "src/commands/login.cpp"
+    GLOB login
+    "src/core/*.cpp"
+    "src/commands/login.cpp"
 )
 add_executable(login ${login})
 
 # build main program
-file(GLOB sfs "src/*.cpp")
+file(
+    GLOB sfs
+    "src/*.cpp"
+    "src/core/*.cpp"
+)
 add_executable(sfs ${sfs})
 
 # set test sub dir

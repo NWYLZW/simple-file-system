@@ -1,14 +1,14 @@
-#include <pwd.h>
 #include <iostream>
 #include <unistd.h>
 
+#include "core/users.h"
 #include "core/consoleColor.h"
 
 using namespace std;
 
 const char * curUsername() {
-    struct passwd *pwd = getpwuid(getuid());
-    return pwd ? pwd->pw_name : "(?)";
+    string* username = getU();
+    return username != nullptr ? username->c_str() : "?";
 }
 
 int main() {
