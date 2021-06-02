@@ -31,6 +31,13 @@ file(
 )
 add_executable(delete ${delete})
 
+file(
+    GLOB read
+    "src/core/*.cpp"
+    "src/commands/read.cpp"
+)
+add_executable(read ${read})
+
 # build main program
 file(
     GLOB sfs
