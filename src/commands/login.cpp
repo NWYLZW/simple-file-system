@@ -9,7 +9,7 @@ std::vector<std::string> split(std::string s, std::string delim) {
         bool is_delim = true;
         char *pp = p;
         char *dd = d;
-        while (*dd && is_delim == true) {
+        while (*dd && is_delim) {
             if (*pp++ != *dd++)
                 is_delim = false;
         }
@@ -24,9 +24,9 @@ std::vector<std::string> split(std::string s, std::string delim) {
     return res;
 }
 
-bool verify(
-    const std::string& username, std::string* p_password
-) {
+std::vector<User*>* listUsers() {
+    auto users = new std::vector<User*>();
+
     std::string line;
     std::ifstream file;
     file.open(
@@ -34,49 +34,60 @@ bool verify(
     );
     if(!file.is_open()) {
         std::cout << "ERROR: FILE IS NOT OPEN" << std::endl;
-        return false;
+        return users;
     }
     while(!file.eof()) {
         getline(file, line);
         if (!line.empty()) {
             auto lineItems = split(line, ":");
-            std::string lineUsername = lineItems[0];
-            std::string linePassword = lineItems[1].substr(0, lineItems[1].length() - 1);
-            if (username == lineUsername) {
-                if (linePassword.empty()) {
-                    return true;
-                } else {
-                    std::string password;
-                    if (p_password == nullptr) {
-                        int i = 0;
-                        for (; i < 3; ++i) {
-                            std::cout << "please input password> ";
-                            std::getline(std::cin, password);
-                            if (
-                                Cryptor::simple(
-                                    password, "12"
-                                ) == linePassword
-                            ) {
-                                return true;
-                            } else {
-                                std::cout << "password is wrong." << std::endl;
-                            }
-                        }
-                        if (i == 3) {
-                            std::cout << "ERROR: Too many errors." << std::endl;
-                            return false;
-                        }
-                    } else {
-                        password = *p_password;
+            auto username = lineItems[0];
+            auto password = lineItems[1].substr(
+                0, lineItems[1].length() - 1
+            );
+            User* u = new User;
+            u->p_username = new std::string(username);
+            u->p_password = new std::string(password);
+            users->push_back(u);
+        }
+    }
+    return users;
+}
+
+bool verify(
+    const std::string& username, std::string* p_password
+) {
+    for (const auto &user : *listUsers()) {
+        std::cout << *user->p_username << std::endl;
+        if (username == *user->p_username) {
+            if (user->p_password->empty()) {
+                return true;
+            } else {
+                std::string password;
+                if (p_password == nullptr) {
+                    int i = 0;
+                    for (; i < 3; ++i) {
+                        std::cout << "please input password> ";
+                        std::getline(std::cin, password);
                         if (
-                            Cryptor::simple(
-                                password, "12"
-                            ) == linePassword
+                            Cryptor::simple(password, "12") == *user->p_password
                         ) {
                             return true;
                         } else {
                             std::cout << "password is wrong." << std::endl;
                         }
+                    }
+                    if (i == 3) {
+                        std::cout << "ERROR: Too many errors." << std::endl;
+                        return false;
+                    }
+                } else {
+                    password = *p_password;
+                    if (
+                        Cryptor::simple(password, "12") == *user->p_password
+                    ) {
+                        return true;
+                    } else {
+                        std::cout << "password is wrong." << std::endl;
                     }
                 }
             }
