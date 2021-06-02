@@ -17,6 +17,14 @@ file(
 )
 add_executable(login ${login})
 
+# build command
+file(
+    GLOB dir
+    "src/core/*.cpp"
+    "src/commands/dir.cpp"
+)
+add_executable(dir ${dir})
+
 # build main program
 file(
     GLOB sfs
