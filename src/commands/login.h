@@ -6,3 +6,7 @@
 #include <pwd.h>
 
 #include "core/cryptor.h"
+
+bool verify(
+    const std::string& username, std::string* p_password
+);

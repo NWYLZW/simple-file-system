@@ -24,6 +24,67 @@ std::vector<std::string> split(std::string s, std::string delim) {
     return res;
 }
 
+bool verify(
+    const std::string& username, std::string* p_password
+) {
+    std::string line;
+    std::ifstream file;
+    file.open(
+        std::string(getpwuid(getuid())->pw_dir) + "/.sfs.users"
+    );
+    if(!file.is_open()) {
+        std::cout << "ERROR: FILE IS NOT OPEN" << std::endl;
+        return false;
+    }
+    while(!file.eof()) {
+        getline(file, line);
+        if (!line.empty()) {
+            auto lineItems = split(line, ":");
+            std::string lineUsername = lineItems[0];
+            std::string linePassword = lineItems[1].substr(0, lineItems[1].length() - 1);
+            if (username == lineUsername) {
+                if (linePassword.empty()) {
+                    return true;
+                } else {
+                    std::string password;
+                    if (p_password == nullptr) {
+                        int i = 0;
+                        for (; i < 3; ++i) {
+                            std::cout << "please input password> ";
+                            std::getline(std::cin, password);
+                            if (
+                                Cryptor::simple(
+                                    password, "12"
+                                ) == linePassword
+                            ) {
+                                return true;
+                            } else {
+                                std::cout << "password is wrong." << std::endl;
+                            }
+                        }
+                        if (i == 3) {
+                            std::cout << "ERROR: Too many errors." << std::endl;
+                            return false;
+                        }
+                    } else {
+                        password = *p_password;
+                        if (
+                            Cryptor::simple(
+                                password, "12"
+                            ) == linePassword
+                        ) {
+                            return true;
+                        } else {
+                            std::cout << "password is wrong." << std::endl;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
 static std::vector<const char *> HELP_MSGS = {
     "login <username> [password]",
     "Usage login",
@@ -52,51 +113,15 @@ int main (
         }
     }
     std::string username = args[1];
-
-    std::string line;
-    std::ifstream file;
-    file.open(
-        std::string(getpwuid(getuid())->pw_dir) + "/.sfs.users"
-    );
-    if(!file.is_open()) {
-        std::cout << "ERROR: FILE IS NOT OPEN" << std::endl;
-        return -1;
+    std::string password;
+    if (argc >= 3) {
+        password = std::string(args[2]);
     }
-    while(!file.eof()) {
-        getline(file, line);
-        if (!line.empty()) {
-            auto lineItems = split(line, ":");
-            std::string lineUsername = lineItems[0];
-            std::string linePassword = lineItems[1].substr(0, lineItems[1].length() - 1);
-            if (username == lineUsername) {
-                if (linePassword.empty()) {
-                    break;
-                } else {
-                    std::string password;
-                    if (argc >= 3) {
-                        password = args[2];
-                    } else {
-                        int i = 0;
-                        for (; i < 3; ++i) {
-                            std::cout << "please input password> ";
-                            std::getline(std::cin, password);
-                            if (Cryptor::simple(
-                                password, "12"
-                            ) == linePassword) {
-                                break;
-                            } else {
-                                std::cout << "password is wrong." << std::endl;
-                            }
-                        }
-                        if (i == 3) {
-                            std::cout << "ERROR: Too many errors." << std::endl;
-                            return -1;
-                        }
-                    }
-                }
-            }
-        }
-    }
+    if (!verify(
+        username, argc >= 3
+        ? &password
+        : nullptr
+    )) return -1;
     std::cout << "login success." << std::endl;
     return 0;
 }
