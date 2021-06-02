@@ -27,7 +27,7 @@ std::vector<std::string*>* readLines(const std::string& filePath) {
 
 int main(
     int argc, char* *args
-    ) {
+) {
     if (argc <= 1) {
         std::cout << "ERROR: Need file path." << std::endl;
         return 1;
