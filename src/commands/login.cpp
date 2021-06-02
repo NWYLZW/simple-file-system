@@ -98,6 +98,41 @@ bool verify(
     return false;
 }
 
+void setU(
+    const std::string& username
+) {
+    std::fstream file;
+    file.open(
+        std::string(getpwuid(getuid())->pw_dir) + "/.sfs.cur", std::fstream::out
+    );
+    if(!file.is_open()) {
+        std::cout << "ERROR: FILE IS NOT OPEN" << std::endl;
+        return;
+    }
+    file.clear();
+    file.write(Cryptor::simple(
+        username, USERNAME_SECRET
+    ).c_str(), username.length());
+    file.close();
+}
+
+std::string* getU() {
+    std::string username;
+    std::fstream file;
+    file.open(
+        std::string(getpwuid(getuid())->pw_dir) + "/.sfs.cur", std::fstream::in
+    );
+    if(!file.is_open()) {
+        std::cout << "ERROR: FILE IS NOT OPEN" << std::endl;
+        return nullptr;
+    }
+    getline(file, username);
+    file.close();
+    return new std::string(Cryptor::simple(
+        username, USERNAME_SECRET
+    ));
+}
+
 static std::vector<const char *> HELP_MSGS = {
     "login <username> [password]",
     "Usage login",
