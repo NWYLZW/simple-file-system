@@ -11,13 +11,13 @@ namespace {
 }
 
 TEST_F(TestClass, Test_ReturnZeroMethod){
-    string plainText  = (string) "some text";
-    string cipherText = (string) Cryptor::simple(
-        plainText.c_str(), "123456"
+    string plainText  = "some text";
+    string cipherText = Cryptor::simple(
+        plainText, "123456"
     );
     GTEST_ASSERT_EQ(
         (string) Cryptor::simple(
-            cipherText.c_str(), "123456"
+            cipherText, "123456"
         ), plainText
     );
 }
