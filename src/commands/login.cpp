@@ -68,7 +68,6 @@ int main (
             auto lineItems = split(line, ":");
             std::string lineUsername = lineItems[0];
             std::string linePassword = lineItems[1].substr(0, lineItems[1].length() - 1);
-            std::cout << "line:" << lineUsername << linePassword << std::endl;
             if (username == lineUsername) {
                 if (linePassword.empty()) {
                     break;
