@@ -28,8 +28,8 @@ int main(
         }
     }
     std::string path = args[1];
-    if (!remove(path.c_str())) {
-        std::cout << "ERROR: Delete file failure.";
+    if (remove(path.c_str())) {
+        std::cout << "ERROR: Delete file failure." << std::endl;
     }
     return 0;
 }
