@@ -171,5 +171,6 @@ int main (
         : nullptr
     )) return -1;
     std::cout << "login success." << std::endl;
+    setU(username);
     return 0;
 }
