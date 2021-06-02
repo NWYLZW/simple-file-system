@@ -1,6 +1,8 @@
 #include "login.h"
 
-std::vector<std::string> split(std::string s, std::string delim) {
+std::vector<std::string> split(
+    std::string s, std::string delim
+) {
     char *p = &s[0];
     char *d = &delim[0];
     std::vector<std::string> res = {""};
