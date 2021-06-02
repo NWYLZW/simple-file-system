@@ -43,7 +43,6 @@ int main(
             return 0;
         }
     }
-    std::string path = realpath(".", nullptr);
     for (const auto &line : *readLines(args[1])) {
         std::cout << line << std::endl;
     }
