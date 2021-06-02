@@ -44,7 +44,7 @@ int main(
         }
     }
     for (const auto &line : *readLines(args[1])) {
-        std::cout << line << std::endl;
+        std::cout << *line << std::endl;
     }
     return 0;
 }
