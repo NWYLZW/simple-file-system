@@ -71,7 +71,7 @@ bool verify(
                         std::cout << "please input password> ";
                         std::getline(std::cin, password);
                         if (
-                            Cryptor::simple(password, "12") == *user->p_password
+                            Cryptor::simple(password, PASSWORD_SECRET) == *user->p_password
                         ) {
                             return true;
                         } else {
@@ -85,7 +85,7 @@ bool verify(
                 } else {
                     password = *p_password;
                     if (
-                        Cryptor::simple(password, "12") == *user->p_password
+                        Cryptor::simple(password, PASSWORD_SECRET) == *user->p_password
                     ) {
                         return true;
                     } else {

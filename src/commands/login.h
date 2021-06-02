@@ -8,6 +8,7 @@
 #include "core/cryptor.h"
 
 #define USERNAME_SECRET "GFyU5a"
+#define PASSWORD_SECRET "12"
 
 struct User {
     std::string* p_username;
