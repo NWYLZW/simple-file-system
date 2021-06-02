@@ -38,6 +38,13 @@ file(
 )
 add_executable(read ${read})
 
+file(
+    GLOB write
+    "src/core/*.cpp"
+    "src/commands/write.cpp"
+)
+add_executable(write ${write})
+
 # build main program
 file(
     GLOB sfs
