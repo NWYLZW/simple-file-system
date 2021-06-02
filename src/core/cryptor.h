@@ -3,10 +3,10 @@
 
 class Cryptor {
 public:
-    static string simple(
-        string text, string key
+    static std::string simple(
+        std::string text, std::string key
     ) {
-        string result = "";
+        std::string result = "";
         for (int i = 0;i < text.length(); i++) {
             result += text[i] ^ key[i % key.length()];
         }
