@@ -52,6 +52,7 @@ std::vector<User*>* listUsers() {
             users->push_back(u);
         }
     }
+    file.close();
     return users;
 }
 
